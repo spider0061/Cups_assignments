@@ -1163,7 +1163,7 @@ cupsdLogRequest(cupsd_client_t *con,	/* I - Request to log */
   if (!strcmp(AccessLog, "syslog"))
   {
     syslog(LOG_INFO,
-           "REQUEST %s - %s \"%s %s HTTP/%d.%d\" %d " CUPS_LLFMT " %s %s\n",
+           "Changes REQUEST %s - %s \"%s %s HTTP/%d.%d\" %d " CUPS_LLFMT " %s %s\n",
            con->http->hostname, con->username[0] != '\0' ? con->username : "-",
 	   states[con->operation], _httpEncodeURI(temp, con->uri, sizeof(temp)),
 	   con->http->version / 100, con->http->version % 100,
@@ -1189,7 +1189,7 @@ cupsdLogRequest(cupsd_client_t *con,	/* I - Request to log */
   */
 
   cupsFilePrintf(AccessFile,
-                 "%s - %s %s \"%s %s HTTP/%d.%d\" %d " CUPS_LLFMT " %s %s\n",
+                 "Changes %s - %s %s \"%s %s HTTP/%d.%d\" %d " CUPS_LLFMT " %s %s\n",
         	 con->http->hostname,
 		 con->username[0] != '\0' ? con->username : "-",
 		 cupsdGetDateTime(&(con->start), LogTimeFormat),
@@ -1268,7 +1268,7 @@ cupsdWriteErrorLog(int        level,	/* I - Log level */
     * Write the log message...
     */
 
-    cupsFilePrintf(ErrorFile, "%c %s %s\n", levels[level],
+    cupsFilePrintf(ErrorFile, "Changes %c %s %s\n", levels[level],
                    cupsdGetDateTime(NULL, LogTimeFormat), message);
     cupsFileFlush(ErrorFile);
   }
